@@ -29,7 +29,7 @@ function* watchSelectArtist() {
 }
 
 function* startup() {
-  yield fork(fetchArtist, { artist: 'Opeth' });
+  yield fork(fetchArtist, { artist: 'Dave' });
 }
 
 // Run

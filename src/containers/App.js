@@ -10,7 +10,7 @@ class App extends Component {
     return (
       <div className="App">
         <Header text={artist.name} />
-        <ArtistImage src={artist.images[0].url}/>
+        <ArtistImage src={artist.images[0].url} />
       </div>
     );
   }
