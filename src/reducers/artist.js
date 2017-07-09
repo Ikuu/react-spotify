@@ -12,6 +12,8 @@ const loadArtist = (state, artist) => artist;
 
 export default (state = INITIAL_ARTIST, action) => {
   switch(action.type) {
+    case 'SEARCH_ARTIST':
+      return INITIAL_ARTIST;
     case LOAD_ARTIST:
       return loadArtist(state, action.artist);
     default:

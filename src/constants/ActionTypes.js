@@ -1,1 +1,2 @@
 export const LOAD_ARTIST = 'LOAD_ARTIST';
+export const LOAD_RELATED_ARTISTS = 'LOAD_RELATED_ARTISTS';

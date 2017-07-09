@@ -16,16 +16,33 @@ const fetchArtistApi = (artist) => (
     .then(json => json.artists.items[0])
 );
 
+const fetchRelatedArtistsApi = (id) => (
+  fetch(`${spotifyApi}/artists/${id}/related-artists`, {
+      headers: {
+        'Authorization': spotifyAuth, 
+      },
+    })
+    .then(response => response.json())
+    .then(json => json.artists)
+);
+
 // Functions*
-function* fetchArtist(artist) {
-  const foundArtist = yield call(fetchArtistApi, artist.artist);
+function* fetchArtist(action) {
+  const foundArtist = yield call(fetchArtistApi, action.artist);
+  
   yield put(actions.loadArtist(foundArtist));
-  // yield fork(fetchRelatedArtists, foundArtist.id);
+  yield fork(fetchRelatedArtists, foundArtist.id);
+}
+
+function* fetchRelatedArtists(id) {
+  const foundRelated = yield call(fetchRelatedArtistsApi, id);
+
+  yield put(actions.loadRelatedArtists(foundRelated));
 }
 
 // Watch
-function* watchSelectArtist() {
-  yield* takeLatest('LOAD_ARTIST', fetchArtist);
+function* watchLoadArtist() {
+  yield takeLatest('SEARCH_ARTIST', fetchArtist);
 }
 
 function* startup() {
@@ -36,6 +53,6 @@ function* startup() {
 export default function* root() {
   yield all([
     fork(startup),
-    fork(watchSelectArtist),
+    fork(watchLoadArtist),
   ]);
 }
