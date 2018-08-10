@@ -4,8 +4,6 @@ class RelatedArtists extends PureComponent {
   render() {
     const { related, onArtistClick } = this.props;
 
-    console.log('relatedartists rendered')
-
     return (
       <div>
         <h2>Related</h2>

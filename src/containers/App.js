@@ -10,8 +10,7 @@ class App extends Component {
     const sameArtist = isEqual(this.props.artist, nextProps.artist);
     const sameRelatedArtists = isEqual(this.props.relatedArtists, nextProps.relatedArtists);
 
-    if (sameArtist && sameRelatedArtists) return false;
-    return true;
+    return !(sameArtist && sameRelatedArtists);
   }
 
   render() {
@@ -20,7 +19,7 @@ class App extends Component {
     return (
       <div className="App">
         <Header text={artist.name} click={onArtistClick} />
-        <ArtistImage src={artist.images[0].url} />
+        <ArtistImage alt={artist.name} src={artist.images[0].url} />
         <RelatedArtists related={relatedArtists} onArtistClick={onArtistClick} />
       </div>
     );
