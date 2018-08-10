@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { PureComponent } from 'react';
 import styled from 'styled-components';
 
 const StyledHeader = styled.h1`
@@ -6,11 +6,16 @@ const StyledHeader = styled.h1`
   font-family: sans-serif;
   text-align: center;
 `;
+class Header extends PureComponent {
+  render() {
+    const { click, text } = this.props;
 
-const Header = ({ text, click }) => (
-  <StyledHeader onClick={click}>
-    {text}
-  </StyledHeader>
-);
+    return (
+      <StyledHeader onClick={() => click(text)}>
+        {text}
+      </StyledHeader>
+    )
+  }
+}
 
 export default Header;

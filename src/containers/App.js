@@ -1,16 +1,25 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { isEqual } from 'lodash';
 import Header from '../components/Header';
 import ArtistImage from '../components/ArtistImage';
 import RelatedArtists from '../components/RelatedArtists';
 
 class App extends Component {
+  shouldComponentUpdate(nextProps, nextState) {
+    const sameArtist = isEqual(this.props.artist, nextProps.artist);
+    const sameRelatedArtists = isEqual(this.props.relatedArtists, nextProps.relatedArtists);
+
+    if (sameArtist && sameRelatedArtists) return false;
+    return true;
+  }
+
   render() {
     const { artist, onArtistClick, relatedArtists } = this.props;
 
     return (
       <div className="App">
-        <Header text={artist.name} />
+        <Header text={artist.name} click={onArtistClick} />
         <ArtistImage src={artist.images[0].url} />
         <RelatedArtists related={relatedArtists} onArtistClick={onArtistClick} />
       </div>

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { PureComponent } from 'react';
 import styled from 'styled-components';
 
 const StyledArtistImage = styled.img`
@@ -7,8 +7,14 @@ const StyledArtistImage = styled.img`
   width: ${props => props.size || 200}px;
 `;
 
-const ArtistImage = (props) => (
-  <StyledArtistImage {...props} />
-);
+const defaultProps = {
+  src: 'http://placehold.it/500x500',
+};
+
+class ArtistImage extends PureComponent {
+  render() {
+    return <StyledArtistImage {...this.props} />
+  }
+}
 
 export default ArtistImage;
